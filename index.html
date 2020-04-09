@@ -162,20 +162,68 @@ bk_doJSTag(85840, 1);
 </script>
  
 <script type="text/javascript">
-  var getEmail = function() {
-  if (localStorage.email) {
-  return localStorage.email;
-  }
-  return 'Anonymous';
-  };
-  
-  var refresh = function() {
-  localStorage.email= ''; // clear it
-	location.reload();
-	}
-	});
-});
-    </script>
+    var getEmail = function() {
+        if (localStorage.email) {
+            return localStorage.email;
+        }
+        return 'ANONYMOUS';
+    };
+
+    var refresh = function() {
+        localStorage.email = ''; // clear it
+        location.reload();
+    }
+
+    var endSession = function() {
+        ORA.click({
+            "sendSessionInfo": true,
+            "data": {
+                "action": "abandon",
+                "data_email": getEmail()
+            }
+        });
+    };
+
+    window.onload = function() {
+        // prefill email field
+        if (getEmail() !== 'ANONYMOUS')
+            $("#EMAIL_ADDRESS_").val(getEmail());
+
+        $('#responsys-form').on('submit', function(e) {
+            // set to localstorage
+            var _email = $("#EMAIL_ADDRESS_").val();
+            localStorage.email = _email;
+
+            ORA.click({
+            "sendSessionInfo": true,
+            "data": {
+                "action": "submitForm",
+                "data_email": getEmail()
+            }
+            });
+        });
+
+        // receive msg frm iframe
+        // have to do it this way because cross domain cannot read content from iframe
+        window.onmessage = function(event) {
+            //Form Submit Success
+            console.log(event.data);
+            if (event.data == 'Form Submit Success') {
+                //disable submit button
+                $('button[type="submit"]').attr('disabled', 'true');
+                //show success
+                $('button[type="submit"]').text('Done');
+            }
+        };
+    };
+</script>
+
+<style>
+    input[type=text], input[type=email] {
+        color: black;
+        background: #fff !important;
+    }
+</style>
 
 <noscript>
     <iframe src="//www.googletagmanager.com/ns.html?id=GTM-JMCW"
@@ -431,9 +479,9 @@ bk_doJSTag(85840, 1);
     <form id="responsys-form" action="https://demo028.rsys5.net/pub/rf" class="form-container" method="POST" target="hidden-form">
 <table class="table-login">
 <tr>
-<td class="form-login-td-First_Name"><input type="text" name="First_Name" placeholder="First Name"></td>
-<td class="form-login-td-Last_Name"><input type="text" name="Last_Name" placeholder="Last Name"></td>
-<td class="form-login-td-email"><input type="email" name="Email" placeholder="Email ID"></td>
+<td class="form-login-td-First_Name"><input type="text" id="FIRST_NAME" name="First_Name" placeholder="First Name"></td>
+<td class="form-login-td-Last_Name"><input type="text" id="LAST_NAME" name="Last_Name" placeholder="Last Name"></td>
+<td class="form-login-td-email"><input type="email" id="EMAIL_ADDRESS_" name="Email" placeholder="Email ID"></td>
 
             <input type="hidden" name="_ri_" value="X0Gzc2X%3DAQpglLjHJlYQGnuRGmuo9BSR0ozeKEzc3e0hRkGA581TlzgUqRVwjpnpgHlpgneHmgJoXX0Gzc2X%3DAQpglLjHJlYQGnpH9sAn7UcYwee8mzdLJASskGA581TlzgUqR">
             <input type="hidden" name="CREATED_SOURCE" value="Ash_Demo_Form">
@@ -441,9 +489,10 @@ bk_doJSTag(85840, 1);
 			
 			<button type="submit" class="btn">Submit</button>
             <button type="button" class="btn cancel" onclick="refresh()">Refresh</button>
-			<button type="button" class="btn btn-inverse btn-block btn-lg dropdown-toggle">End Session</button>
+			<button type="button" class="btn endsession" onclick="endSession()">End Session</button>
           </form>
-		    <!-- Used for Rsys form submission -->
+		  <!-- Used for Rsys form submission -->
+          <iframe style="display:none" name="hidden-form" id="hidden-form-iframe"></iframe>
 <td class="endsession-button"><a href="http://epistrophy.co.uk/sessionexpire.php">endsession</a></td>
 </tr>
 </table>
