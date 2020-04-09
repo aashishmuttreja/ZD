@@ -175,51 +175,6 @@ bk_doJSTag(85840, 1);
 	}
 	});
 });
-
-// tag link clicks
-        $('a').attr('href', '');
-        $('a').click(function() {
-          var text = $(this).text();
-          ORA.click({
-            "sendSessionInfo": true,
-            "data": {
-                "action": "linkClick",
-                "link_text": text,
-                "data_email": getEmail()
-            }
-          });
-        });
- // button
-        $('button').off().click(function() {  
-          console.log('btn click')
-          var text = $(this).attr('data-original-title');
-
-          if (!text) {
-            text = $(this).text(); 
-          }
-
-          console.log(text + 'btn click ');
-
-          ORA.click({
-            "sendSessionInfo": true,
-            "data": {
-                "action": "btnClick",
-                "link_text": text,
-                "data_email": getEmail()
-			}
-          });
-        });				
-	 // override button, End Session
-        $('#cartBtn').off().click(function() {
-          ORA.click({
-            "sendSessionInfo": true,
-            "data": {
-                "action": "abandon",
-                "data_email": getEmail()
-            }
-          });
-        });  
-      };
     </script>
 
 <noscript>
