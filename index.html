@@ -33,6 +33,14 @@ src='https://api.pushio.com/webpush/sdk/wpIndex_min.js'
 async
 wpconfig = '{"appserviceKey":"BEQLoFtTGZ0tlhPv0kguoMWfSUuwGHtJrf0dfzl24VffvnUNC1nZJaHqSKf0j_yyMJcobXsFAvXM0VmelCY5hPE=","apiKey":"ABEjL7oBuw8Fw0-svzbK5DrOs","accountToken":"ABEq_61sebCfTlmtGZ-mOxe88","appver":"0.0.0","apiHost":"https://api.pushio.com","lazy":false}'></script>
 <!-- End Responsys Web Push Tag -->
+
+<!---Responsys Web Push Service Worker--->
+<script type="text/javascript">	
+importScripts('https://api.pushio.com/webpush/sdk/service_min.js');
+var config = '{"appserviceKey":"BEQLoFtTGZ0tlhPv0kguoMWfSUuwGHtJrf0dfzl24VffvnUNC1nZJaHqSKf0j_yyMJcobXsFAvXM0VmelCY5hPE=","apiKey":"ABEjL7oBuw8Fw0-svzbK5DrOs","accountToken":"ABEq_61sebCfTlmtGZ-mOxe88","appver":"0.0.0","apiHost":"https://api.pushio.com","lazy":false}';
+orawp.init(config);	
+</script>
+<!-- End Responsys Web Push Service Worker -->
 	
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="https://static-sg.zacdn.com">
