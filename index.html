@@ -45,6 +45,7 @@ wpconfig = '{"appserviceKey":"BEQLoFtTGZ0tlhPv0kguoMWfSUuwGHtJrf0dfzl24VffvnUNC1
 <!-- End Responsys Web Push Tag -->
 
 <!----Service worker web push---->
+<script type='text/javascript'
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
     navigator.serviceWorker.register('/sw.js').then(function(registration) {
@@ -56,6 +57,7 @@ if ('serviceWorker' in navigator) {
     });
   });
 }
+</script>	
 <!-- End Service Worker Web Push -->	
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="https://static-sg.zacdn.com">
