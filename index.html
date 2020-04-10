@@ -43,7 +43,20 @@ wpconfig = '{"appserviceKey":"BEQLoFtTGZ0tlhPv0kguoMWfSUuwGHtJrf0dfzl24VffvnUNC1
 	    '>
 	</script>
 <!-- End Responsys Web Push Tag -->
-	
+
+<!----Service worker web push---->
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').then(function(registration) {
+      // Registration was successful
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }, function(err) {
+      // registration failed :(
+      console.log('ServiceWorker registration failed: ', err);
+    });
+  });
+}
+<!-- End Service Worker Web Push -->	
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="https://static-sg.zacdn.com">
 <link rel="dns-prefetch" href="https://dynamic.zacdn.com">
